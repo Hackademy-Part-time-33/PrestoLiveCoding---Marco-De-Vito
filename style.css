@@ -1,0 +1,150 @@
+* {
+    font-family: "Electrolize", sans-serif;
+}
+body,html{
+    overflow-x: hidden ;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: "Orbitron", sans-serif;
+}
+
+:root {
+    --Black: rgb(26, 26, 26);
+    --White: rgb(250, 250, 250);
+    --Gold: rgb(174, 148, 109);
+}
+
+.bg-Black {
+    background-color: var(--Black);
+}
+
+.bg-White {
+    background-color: var(--White);
+}
+
+.bg-Gold {
+    background-color: var(--Gold);
+}
+
+.txt-Black {
+    color: var(--Black);
+}
+
+.txt-White {
+    color: var(--White);
+}
+
+.txt-Gold {
+    color: var(--Gold);
+}
+/* css navbar */
+.nav-custom{
+    background-color: var(--White);
+    width: 100%;
+    height: 90px;
+    position: fixed;
+    top: 0;
+    transition: 0.5s;
+    z-index: 10;
+
+}
+.img-logo{
+    height: 52px;
+    width: 64px;
+}
+
+.nav-link{
+    color: var(--Black);
+}                 
+
+/* css scroll bar */
+.nav-blur{
+    backdrop-filter: blur(5px), saturate(0.8);
+    background: rgba(100,100,100,0.9);
+    border: 3px solid  var(--Gold);
+}
+
+/* header */
+header {
+    /* height: 100vh; */
+    
+    background: linear-gradient(rgb(250,250,250),rgba(250,250,250,0.0)),url("./Media/header.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 90px;
+}
+
+.forms{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+
+.btn-custom{
+    height: 40px;
+    width: 100px;
+    border:unset;
+    border-radius: 12px;
+    color:var(--Black);
+    background: transparent;
+    z-index: 1;
+    position: relative;
+    transition: all 250ms;
+    overflow:hidden
+}
+
+.btn-custom::before{
+    content:"";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 10px;
+    background-color: var(--Gold);
+    z-index: -1;
+    transition: all 250ms;
+}
+
+.btn-custom:hover{
+    color: var(--White);
+
+}
+
+.btn-custom:hover::before{
+    width: 100%;
+}
+
+/* css sezione numeri */
+.numbers{
+    font-size: 45px;
+    color: var(--Gold);
+    font-weight: bold;
+}
+
+.h2Numbers {
+    font-size: 72px;
+    background: -webkit-linear-gradient( rgb(174, 148, 109),rgb(26, 26, 26));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  /* swiper css*/
+  .swiper {
+   
+    height: 300px;
+  }
