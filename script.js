@@ -97,24 +97,76 @@ let observer = new IntersectionObserver((entries) => {
 
 observer.observe(firstNumber);
 
-const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    // direction: 'oriziontal',
-    loop: true,
-  
-    // If we need pagination
+var swiper = new Swiper(".mySwiper", {
+    speed: 600,
+    parallax: true,
     pagination: {
-      el: '.swiper-pagination',
+      el: ".swiper-pagination",
+      clickable: true,
     },
-  
-    // Navigation arrows
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
     },
-  
-    // And if we need scrollbar
-    // scrollbar: {
-    //   el: '.swiper-scrollbar',
-    // },
   });
+
+  let reviews=[
+    {name: "Elia", title:"La mia più bella esperienza", "description":"Bellissima esperienza, personale gentile, preparato e rapido, prezzi onestissimi"},
+    {name: "Vincenzo", title:"Pessima esperienza", "description":"Sito disgustoso e poco professionale"},
+    {name: "Laura", title:"Esperienza COOL", "description":"Accoglienza Top, qualità dei prodotti eccellente, solo un po' lenta la spedizione"},
+    {name: "Stefano", title:"Bello", "description":"TOP!! :)"},
+    {name: "Gianmarco", title:"Altrove si trova di meglio", "description":"le scarpe si sono rotte dopo 2 giorni! SCONSIGLIATO :("},
+    {name: "Rocco", title:"Bellissima esperienza", "description":"Abbiamo mangiato bene ma i camerrieri non sono stati professionali"},
+  ];
+
+
+let swiperWrapper= document.querySelector(".swiper-wrapper")
+let addReviews = document.querySelector("#addReviews")
+let userName = document.querySelector("#userName")
+let userTitle = document.querySelector("#userTitle")
+let userDescription = document.querySelector("#userDescription")
+
+
+function generateCards() {
+    swiperWrapper.innerHTML="";
+    reviews.forEach(review =>{
+        
+        let div= document.createElement("div");
+        div.classList.add("swiper-slide")
+        
+        div.innerHTML=`<div class="title" data-swiper-parallax="-300">${review.name}</div>
+        <div class="subtitle" data-swiper-parallax="-200">${review.title}</div>
+        <div class="text" data-swiper-parallax="-100">
+            <p>
+                ${review.description}
+            </p>
+        </div>`
+        
+        swiperWrapper.appendChild(div)
+      })
+}
+  
+
+reviews.push({name: "rich", title:"Bello", "description":"TOP!! :)"})
+generateCards();
+ 
+addReviews.addEventListener('click', ()=>{
+    if(userName.value!==""&&userTitle.value!==""&& userDescription.value!==""){
+        
+        console.log('eccomi');
+        console.log(userName.value);
+        console.log(userTitle.value);
+        console.log(userDescription.value);
+        
+    reviews.push({"name": userName.value , "title": userTitle.value , "description":userDescription.value})
+
+    generateCards(); 
+    userName.value=""
+    userTitle.value=""
+    userDescription.value=""
+    // console.log(reviews);
+    swiper.update();
+    }
+})                                
+              
+

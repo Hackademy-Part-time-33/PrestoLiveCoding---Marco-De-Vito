@@ -23,7 +23,7 @@ h6,
 :root {
     --Black: rgb(26, 26, 26);
     --White: rgb(250, 250, 250);
-    --Gold: rgb(174, 148, 109);
+    --Gold: rgb(157, 64, 161);
 }
 
 .bg-Black {
@@ -61,8 +61,8 @@ h6,
 
 }
 .img-logo{
-    height: 52px;
-    width: 64px;
+    height: 60px;
+    /* width: 64px; */
 }
 
 .nav-link{
@@ -73,7 +73,7 @@ h6,
 .nav-blur{
     backdrop-filter: blur(5px), saturate(0.8);
     background: rgba(100,100,100,0.9);
-    border: 3px solid  var(--Gold);
+    border-bottom: 3px solid  var(--Gold);
 }
 
 /* header */
@@ -139,7 +139,7 @@ header {
 
 .h2Numbers {
     font-size: 72px;
-    background: -webkit-linear-gradient( rgb(174, 148, 109),rgb(26, 26, 26));
+    background: -webkit-linear-gradient( rgb(156, 64, 160),rgb(26, 26, 26));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -148,3 +148,65 @@ header {
    
     height: 300px;
   }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+    background: var(--White);
+    
+  }
+
+  .swiper-slide {
+    font-size: 18px;
+    color: var(--Black);
+
+    /* -webkit-box-sizing: border-box; */
+    box-sizing: border-box;
+    padding: 40px 60px;
+    height: 300px;
+  }
+
+  .parallax-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 130%;
+    height: 100%;
+    background: linear-gradient(rgba(250,250,250,0.7),rgba(250,250,250,0.2)), url(./Media/recensioni.jpg);
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: bottom;
+  }
+
+  .swiper-slide .title {
+    font-size: 41px;
+    font-weight: 300;
+    margin-left: 80px;
+  }
+
+  .swiper-slide .subtitle {
+    font-size: 21px;
+    margin-left: 60px;
+  }
+
+  .swiper-slide .text {
+    font-size: 14px;
+    max-width: 400px;
+    line-height: 1.3;
+    margin-left: 60px;
+  }
+
+
+  .swiper-button-next,.swiper-button-prev{
+    color: var(--Gold);
+  }
+
+.title-annunci
+{
+    margin-top: 90px;
+}
+
+.mySwiper{
+    box-shadow: 10px 10px 20px var(--Gold);
+    
+}

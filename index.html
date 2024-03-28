@@ -38,7 +38,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Shop</a>
+                        <a class="nav-link" href="./annunci.html">Shop</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Donna</a>
@@ -77,9 +77,9 @@
                 </form>
 
             </div>
-            <div class="col-12 col-md-6 forms mb-5">
+            <div class="col-12 col-md-6 forms my-5">
                 <img src="./Media/logo-nero.png" alt="immagine del logo del sito"><!-- logo del sito -->
-                <h1>PRESTO.IT</h1>
+                <h1 class="mt-5">PRESTO.IT</h1>
             </div>
         </div>
 
@@ -90,7 +90,7 @@
 
     <!-- corpo sito -->
     <main>
-        <section class="container  "></section>
+        <section class="container my-5"></section>
         <div class="row">
             <div class="col-12 col-md-6 d-flex justify-content-center" data-aos="fade-right" data-aos-duration="3000">
                 <img src="https://picsum.photos/500" alt="immagine della sezione" class="img-fluid ">
@@ -128,32 +128,60 @@
                 </div>
             </div>
         </section>
-        <section class="container mt-5">
-            <div class="row">
-                <div class="col-12">
+        <section class="container mt-5 my-5">
+            <div class="row justify-content-center ">
+                <div class="col-12 my-5">
                     <h2>DICONO DI NOI</h2>
                 </div>
                 <div class="col-12 col-md-10"><!-- Slider main container -->
-                    <div class="swiper">
-                        <!-- Additional required wrapper -->
+                    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                        class="swiper mySwiper">
+                        <div class="parallax-bg" data-swiper-parallax="-23%"></div>
                         <div class="swiper-wrapper">
-                            <!-- Slides -->
-                            <div class="swiper-slide">Slide 1</div>
-                            <div class="swiper-slide">Slide 2</div>
-                            <div class="swiper-slide">Slide 3</div>
-                            ...
+
+                            <!-- <div class="swiper-slide">
+                                <div class="title" data-swiper-parallax="-300">Sara</div>
+                                <div class="subtitle" data-swiper-parallax="-200">Non mi piace</div>
+                                <div class="text" data-swiper-parallax="-100">
+                                    <p>
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus
+                                        reiciendis nulla error neque quis tempore vitae, soluta quia dolorem nostrum
+                                        quasi atque harum fuga quidem dolores inventore voluptates cupiditate laborum.
+                                    </p>
+                                </div>
+                            </div> -->
                         </div>
-                        <!-- If we need pagination -->
-                        <div class="swiper-pagination"></div>
-
-                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-next "></div>
                         <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-
-                        
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="row justify-content-center  ">
+                <div class="col-12 text-center ">
+                    <h3>Inserisci recensione</h3>
+                </div>
+                <div class="col-12 col-md-5">
+                    <div>
+                        <label for="userName">Nome</label>
+                        <input id="userName" type="text" class="form-control">
+                    </div>
+                    <div>
+                        <label for="userTitle">Titolo</label>
+                        <input id="userTitle" type="text" class="form-control">
+                    </div>
+                    <div>
+                        <label for="userDescription">Descrizione</label>
+                        <input id="userDescription" type="text" class="form-control">
+                    </div>
+                    <div id="addReviews" class="mt-2 d-flex justify-content-end "><button class="btn btn-custom">Invia</button></div>
+                </div>
+            </div>
+
         </section>
     </main>
 
