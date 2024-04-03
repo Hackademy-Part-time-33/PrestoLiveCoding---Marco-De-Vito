@@ -1,9 +1,9 @@
 let myNavbar = document.querySelector('#myNavbar')
 let links = document.querySelectorAll('.nav-link')
 let logo = document.querySelector('.img-logo')
-let wrapperCard= document.querySelector('#wrapperCard')
+let wrapperCard = document.querySelector('#wrapperCard')
 
-console.dir(logo)
+// console.dir(logo)
 
 
 
@@ -60,29 +60,89 @@ function changeNavbar(background, imglogo, color1, color2, color3) {
 // PASSAGGIO N2: CONVERTIRE IL JSON IN UN OGGETTO JAVASCRIPT ,then((response))
 // PASSAGGIO N3: UTILIZZARE L'OGGETTO data
 
-fetch("./annunci.json").then((response)=> response.json()).then((data)=>{
-    
+fetch("./annunci.json").then((response) => response.json()).then((data) => {
+
+    let categoryWrapper = document.querySelector('#categoryWrapper')
+    let cardWrapper = document.querySelector('#cardWrapper')
+
+
     console.log(data);
-   function generaCard(listCard) {
-    listCard.forEach(el=>{
-        let card = document.createElement('div')
-        card.classList.add('col-12','col-md-4')
-        
-        card.innerHTML=`<div class="card" style="width: 18rem;"><img src="${el.image}" class="card-img-top" alt="immagine oggetto">
-        <div class="card-body">
-            <h5 class="card-title">${el.name}</h5>
-            <p class="card-text">${el.category}</p>
-            <p>${el.price}€</p>
-        </div>`
-        wrapperCard.appendChild(card)
+
+    function setCategory() {
+        let category = data.map((annuncio) => annuncio.category);
+        console.log(category);
+        let uniqueCategory = [];
+        category.forEach(category => {
+            if (!uniqueCategory.includes(category)) {
+                uniqueCategory.push(category)
+            }
+
+
         })
-   }
-    
-    generaCard(data);
-    
+        console.log(uniqueCategory);
+        uniqueCategory.forEach(category => {
+            let div = document.createElement('div')
+            div.classList.add('form-check')
+            div.innerHTML = `<input class="form-check-input" type="radio" name="category" id="${category}">
+        <label class="form-check-label" for="${category}">
+            ${category}
+        </label>`
+            categoryWrapper.appendChild(div);
+        })
+    }
+    setCategory();
+
+    function showCard(listCard) {
+        listCard.sort((a, b) => a.price - b.price)
+        cardWrapper.innerHTML = "" //pulisco il wrapper per la funzione filtro
+        listCard.forEach(el => {
+            let card = document.createElement('div')
+            // card.classList.add('col-12', 'col-md-4')
+            card.classList.add("card", "mb-4")
+            card.style.width = "16rem";
+
+            card.innerHTML = `<img src="${el.image}" class="card-img-top" alt="immagine oggetto">
+            <div class="card-body">
+                <h5 class="card-title">${el.name}</h5>
+                <p class="card-text">${el.category}</p>
+                <p>${el.price}€</p>
+            `
+            cardWrapper.appendChild(card)
+        })
+    }
+    showCard(data);
+
+
+    // input radio
+    let radios = document.querySelectorAll(".form-check-input")
+    function filterByCategory() {
+        // console.log(radios);
+        let checked = Array.from(radios).find((button) => button.checked)
+        let categoria = checked.id;
+        if (categoria != "all") //se non ho cliccato "tutte le categorie" 
+        {
+            // crea nuovo array filtrato
+            let filtered = data.filter(annuncio => annuncio.category == categoria);
+            showCard(filtered)
+        }
+        else{
+            showCard(data)
+        }
+        // console.log(checked);
+    }
+    // filterByCategory()
+
+    radios.forEach(button => {
+        button.addEventListener("click", () => { filterByCategory() });
+
+    })
+
+
+
 });
 
 
-// fetch: chiamata asincrona che si occupa di collegare il mio foglio di lavoro con l'esterno o l'interno del mio progetto 
+
+// fetch: chiamata asincrona che si occupa di collegare il mio foglio di lavoro con l'esterno o l'interno del mio progetto
 // api:  sono degli indirizzi
 // chiavi-api: sono chiavi speciali 

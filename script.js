@@ -4,7 +4,7 @@ let myNavbar = document.querySelector('#myNavbar')
 let links = document.querySelectorAll('.nav-link')
 let logo = document.querySelector('.img-logo')
 
-console.dir(logo)
+// console.dir(logo)
 
 
 
@@ -153,10 +153,10 @@ generateCards();
 addReviews.addEventListener('click', ()=>{
     if(userName.value!==""&&userTitle.value!==""&& userDescription.value!==""){
         
-        console.log('eccomi');
-        console.log(userName.value);
-        console.log(userTitle.value);
-        console.log(userDescription.value);
+        // console.log('eccomi');
+        // console.log(userName.value);
+        // console.log(userTitle.value);
+        // console.log(userDescription.value);
         
     reviews.push({"name": userName.value , "title": userTitle.value , "description":userDescription.value})
 
