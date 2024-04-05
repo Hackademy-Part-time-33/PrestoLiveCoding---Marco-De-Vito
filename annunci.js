@@ -2,8 +2,26 @@ let myNavbar = document.querySelector('#myNavbar')
 let links = document.querySelectorAll('.nav-link')
 let logo = document.querySelector('.img-logo')
 let wrapperCard = document.querySelector('#wrapperCard')
+let navbarToggler = document.querySelector('.navbar-toggler')
+let divCollapse  = document.querySelector('#collapse')
 
 // console.dir(logo)
+
+
+navbarToggler.addEventListener('click', () => {
+    console.log(navbarToggler.ariaExpanded);
+    if (navbarToggler.ariaExpanded) {
+
+        let scrolled = window.scrollY
+
+        if (scrolled > 0) {
+            divCollapse.classList.add("collapse-black")
+        } else {
+            divCollapse.classList.add("collapse-white")
+        }
+    }
+
+})
 
 
 
@@ -12,39 +30,29 @@ window.addEventListener("scroll", () => {
     let scrolled = window.scrollY
 
     if (scrolled > 0) {
-        // myNavbar.classList.add("nav-blur")
-
-
-        // links.forEach(link => {
-        //     link.style.color = 'var(--White)'
-        //     link.addEventListener('mouseenter', () => {
-        //         link.style.borderBottom = "2px solid var(--Gold)"
-        //     })
-        //     link.addEventListener('mouseleave', () => {
-        //         link.style.borderBottom = "transparent"
-        //     })
-        // });
-        changeNavbar("nav-blur", "logo-bianco", 'var(--White)', "2px solid var(--Gold)", "transparent")
+        
+        changeNavbar("nav-blur", "logo-bianco", 'var(--White)', "2px solid var(--Gold)", "transparent", "collapse-black", "collapse-white")
     } else {
         myNavbar.classList.remove("nav-blur")
-        // logo.src = "http://127.0.0.1:5500/Media/logo-nero.png"
-        // links.forEach(link => {
-        //     link.style.color = 'var(--Black)'
-        //     link.addEventListener('mouseenter', () => {
-        //         link.style.borderBottom = "2px solid var(--Gold)"
-        //     })
-        //     link.addEventListener('mouseleave', () => {
-        //         link.style.borderBottom = "transparent"
-        //     })
-        // });
-        changeNavbar("nav-custom", "logo-nero", 'var(--Black)', "2px solid var(--Gold)", "transparent")
-
+        changeNavbar("nav-custom", "logo-nero", 'var(--Black)', "2px solid var(--Gold)", "transparent", "collapse-white", "collapse-black")
     }
 })
 
-function changeNavbar(background, imglogo, color1, color2, color3) {
+function changeNavbar(background, imglogo, color1, color2, color3, addNavCollpase, removeNavCollapse) {
     myNavbar.classList.add(background)
-    logo.src = `http://127.0.0.1:5500/Media/${imglogo}.png`
+    console.log(navbarToggler.ariaExpanded);
+
+    if (navbarToggler.ariaExpanded === "false") {
+        console.log("ciao");
+        divCollapse.classList.remove(addNavCollpase);
+        divCollapse.classList.remove(removeNavCollapse);
+    } else if (navbarToggler.ariaExpanded === "true"){
+        console.log('hello');
+        divCollapse.classList.add(addNavCollpase);
+        divCollapse.classList.remove(removeNavCollapse);
+    }
+
+    logo.src = `./Media/${imglogo}.png`
     links.forEach(link => {
         link.style.color = color1
         link.addEventListener('mouseenter', () => {
@@ -55,10 +63,11 @@ function changeNavbar(background, imglogo, color1, color2, color3) {
         })
     });
 }
-
 // PASSAGGIO N1: CONNETTERMI AL JSON E QUINDI PORTARMI IL JSON SUL PROGETTO
 // PASSAGGIO N2: CONVERTIRE IL JSON IN UN OGGETTO JAVASCRIPT ,then((response))
 // PASSAGGIO N3: UTILIZZARE L'OGGETTO data
+
+// localStorage()
 
 fetch("./annunci.json").then((response) => response.json()).then((data) => {
 
@@ -79,7 +88,7 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
 
 
         })
-        console.log(uniqueCategory);
+        // console.log(uniqueCategory);        
         uniqueCategory.forEach(category => {
             let div = document.createElement('div')
             div.classList.add('form-check')
@@ -93,7 +102,7 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
     setCategory();
 
     function showCard(listCard) {
-        listCard.sort((a, b) => a.price - b.price)
+        listCard.sort((a, b) => b.price - a.price)
         cardWrapper.innerHTML = "" //pulisco il wrapper per la funzione filtro
         listCard.forEach(el => {
             let card = document.createElement('div')
@@ -115,34 +124,129 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
 
     // input radio
     let radios = document.querySelectorAll(".form-check-input")
-    function filterByCategory() {
+
+    // CATEGORIA
+    function filterByCategory(arrayTotal) {
         // console.log(radios);
+        
         let checked = Array.from(radios).find((button) => button.checked)
         let categoria = checked.id;
         if (categoria != "all") //se non ho cliccato "tutte le categorie" 
         {
             // crea nuovo array filtrato
-            let filtered = data.filter(annuncio => annuncio.category == categoria);
-            showCard(filtered)
+            // let filtered = arrayTotal.filter(annuncio => annuncio.category == categoria);
+            
+            let filtered = arrayTotal.filter(annuncio => annuncio.category == categoria);
+            // showCard(filtered)
+            return filtered
+
         }
-        else{
-            showCard(data)
+        else {
+            // showCard(data)
+            return arrayTotal
         }
         // console.log(checked);
     }
     // filterByCategory()
 
     radios.forEach(button => {
-        button.addEventListener("click", () => { filterByCategory() });
+        button.addEventListener("click", () => { filterByAll() });
 
     })
 
 
+    // PREZZO
+    let inputPrice = document.querySelector('#inputPrice')
+    let priceNumber = document.querySelector('#priceNumber')
+
+    function setPriceInput() {
+        let maxPrice = data[0].price
+        inputPrice.max = maxPrice
+        inputPrice.value = maxPrice
+        console.log(maxPrice);
+        priceNumber.innerHTML = maxPrice
+    }
+    setPriceInput()
+
+    inputPrice.addEventListener("input", () => {
+        priceNumber.innerHTML = inputPrice.value
+        // filterByPrice()
+        filterByAll()
+
+    });
+
+    function filterByPrice(arrayTotal) {
+        let filtered = arrayTotal.filter(card =>
+            // Number(card.price) <= Number(inputPrice.value))
+            +card.price <= +inputPrice.value)
+
+        // showCard(filtered)
+        return filtered
+    }
+
+    let inputWord = document.querySelector('#inputWord')
+
+    inputWord.addEventListener("input", () => {
+        console.log(inputWord.value);
+        filterByAll()
+    })
+
+    function filterByWord(arrayTotal) {
+        let filtered = arrayTotal.filter(card => card.name.toLowerCase().includes(inputWord.value.toLowerCase()))
+
+        // showCard(filtered)
+        return filtered
+    }
+
+    function filterByAll() {
+        let arrayTotal= filterByCategory(data)
+        console.log(arrayTotal);
+        arrayTotal= filterByPrice(arrayTotal)
+        console.log(arrayTotal);
+        arrayTotal= filterByWord(arrayTotal)
+        showCard(arrayTotal)
+        console.log(arrayTotal);
+    }
 
 });
 
 
+let btnDarkMode = document.querySelector('#btnDarkMode');
 
-// fetch: chiamata asincrona che si occupa di collegare il mio foglio di lavoro con l'esterno o l'interno del mio progetto
-// api:  sono degli indirizzi
-// chiavi-api: sono chiavi speciali 
+let isClicked = true;
+
+btnDarkMode.addEventListener('click', () => {
+    if (isClicked) {
+        document.documentElement.style.setProperty('--light', "rgb(26, 26, 26)")
+        document.documentElement.style.setProperty('--dark', "rgb(250, 250, 250)")
+        btnDarkMode.innerHTML = '<i class="fa-regular fa-sun"></i>'
+        isClicked = false
+        localStorage.setItem('mode', 'dark')
+    } else {
+        document.documentElement.style.setProperty('--light', "rgb(250, 250, 250)")
+        document.documentElement.style.setProperty('--dark', "rgb(26, 26, 26)")
+        btnDarkMode.innerHTML = '<i class="fa-solid fa-moon"></i>'
+        isClicked = true
+        localStorage.setItem('mode', 'light')
+    }
+})
+
+
+let mode = localStorage.getItem('mode')
+console.log(mode);
+
+if (mode === 'dark') {
+    document.documentElement.style.setProperty('--light', "rgb(26, 26, 26)")
+    document.documentElement.style.setProperty('--dark', "rgb(250, 250, 250)")
+    btnDarkMode.innerHTML = '<i class="fa-regular fa-sun"></i>'
+    isClicked = false
+} else {
+    document.documentElement.style.setProperty('--dark', "rgb(26, 26, 26)")
+    document.documentElement.style.setProperty('--light', "rgb(250, 250, 250)")
+    btnDarkMode.innerHTML = '<i class="fa-solid fa-moon"></i>'
+    isClicked = true
+}
+
+
+
+

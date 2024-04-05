@@ -20,7 +20,16 @@ h6,
     font-family: "Orbitron", sans-serif;
 }
 
+.light-mode{
+    background-color: var(--light);
+    color: var(--dark)
+}
+
+
+
 :root {
+    --light:rgb(250, 250, 250);
+    --dark:rgb(26, 26, 26);
     --Black: rgb(26, 26, 26);
     --White: rgb(250, 250, 250);
     --Gold: rgb(157, 64, 161);
@@ -76,6 +85,19 @@ h6,
     border-bottom: 3px solid  var(--Gold);
 }
 
+
+.collapse-white {
+    backdrop-filter: blur(5px), saturate(0.8);
+    background-color:rgba(250,250,250,0.9);
+
+    
+   }
+.collapse-black {
+    backdrop-filter: blur(5px), saturate(0.8);
+    background-image: linear-gradient(to bottom, transparent 82px, rgba(100,100,100,0.9) 82px);
+
+       
+}
 /* header */
 header {
     /* height: 100vh; */
@@ -166,6 +188,7 @@ header {
     height: 300px;
   }
 
+  
   .parallax-bg {
     position: absolute;
     left: 0;
@@ -210,4 +233,16 @@ header {
 .mySwiper{
     box-shadow: 10px 10px 20px var(--Gold);
     
+}
+
+
+
+.foot{
+    margin-top: 30px;
+    height: 50vh;
+
+}
+
+.foot ul{
+    list-style: none ;
 }
