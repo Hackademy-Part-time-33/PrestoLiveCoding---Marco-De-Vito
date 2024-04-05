@@ -2,15 +2,16 @@
 
 let myNavbar = document.querySelector('#myNavbar')
 let links = document.querySelectorAll('.nav-link')
-console.log(links);
 let logo = document.querySelector('.img-logo')
 let navbarToggler = document.querySelector('.navbar-toggler')
 let divCollapse = document.querySelector('#collapse')
 // console.dir(logo)
 
 
+changeNavbar("nav-custom", "logo-nero", 'var(--Black)', "2px solid var(--Gold)", "transparent", "collapse-white", "collapse-black")
+
 navbarToggler.addEventListener('click', () => {
-    console.log(navbarToggler.ariaExpanded);
+    
     if (navbarToggler.ariaExpanded) {
 
         let scrolled = window.scrollY
@@ -204,7 +205,7 @@ btnDarkMode.addEventListener('click', () => {
 
 
 let mode = localStorage.getItem('mode')
-console.log(mode);
+// console.log(mode);
 
 if (mode === 'dark') {
     document.documentElement.style.setProperty('--light', "rgb(26, 26, 26)")

@@ -3,13 +3,14 @@ let links = document.querySelectorAll('.nav-link')
 let logo = document.querySelector('.img-logo')
 let wrapperCard = document.querySelector('#wrapperCard')
 let navbarToggler = document.querySelector('.navbar-toggler')
-let divCollapse  = document.querySelector('#collapse')
+let divCollapse = document.querySelector('#collapse')
 
 // console.dir(logo)
 
+changeNavbar("nav-custom", "logo-nero", 'var(--Black)', "2px solid var(--Gold)", "transparent", "collapse-white", "collapse-black")
 
 navbarToggler.addEventListener('click', () => {
-    console.log(navbarToggler.ariaExpanded);
+
     if (navbarToggler.ariaExpanded) {
 
         let scrolled = window.scrollY
@@ -30,7 +31,7 @@ window.addEventListener("scroll", () => {
     let scrolled = window.scrollY
 
     if (scrolled > 0) {
-        
+
         changeNavbar("nav-blur", "logo-bianco", 'var(--White)', "2px solid var(--Gold)", "transparent", "collapse-black", "collapse-white")
     } else {
         myNavbar.classList.remove("nav-blur")
@@ -40,14 +41,14 @@ window.addEventListener("scroll", () => {
 
 function changeNavbar(background, imglogo, color1, color2, color3, addNavCollpase, removeNavCollapse) {
     myNavbar.classList.add(background)
-    console.log(navbarToggler.ariaExpanded);
+    // console.log(navbarToggler.ariaExpanded);
 
     if (navbarToggler.ariaExpanded === "false") {
-        console.log("ciao");
+        // console.log("ciao");
         divCollapse.classList.remove(addNavCollpase);
         divCollapse.classList.remove(removeNavCollapse);
-    } else if (navbarToggler.ariaExpanded === "true"){
-        console.log('hello');
+    } else if (navbarToggler.ariaExpanded === "true") {
+        // console.log('hello');
         divCollapse.classList.add(addNavCollpase);
         divCollapse.classList.remove(removeNavCollapse);
     }
@@ -79,7 +80,7 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
 
     function setCategory() {
         let category = data.map((annuncio) => annuncio.category);
-        console.log(category);
+        // console.log(category);
         let uniqueCategory = [];
         category.forEach(category => {
             if (!uniqueCategory.includes(category)) {
@@ -128,14 +129,14 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
     // CATEGORIA
     function filterByCategory(arrayTotal) {
         // console.log(radios);
-        
+
         let checked = Array.from(radios).find((button) => button.checked)
         let categoria = checked.id;
         if (categoria != "all") //se non ho cliccato "tutte le categorie" 
         {
             // crea nuovo array filtrato
             // let filtered = arrayTotal.filter(annuncio => annuncio.category == categoria);
-            
+
             let filtered = arrayTotal.filter(annuncio => annuncio.category == categoria);
             // showCard(filtered)
             return filtered
@@ -163,7 +164,7 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
         let maxPrice = data[0].price
         inputPrice.max = maxPrice
         inputPrice.value = maxPrice
-        console.log(maxPrice);
+        // console.log(maxPrice);
         priceNumber.innerHTML = maxPrice
     }
     setPriceInput()
@@ -184,10 +185,10 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
         return filtered
     }
 
+    // PAROLA
     let inputWord = document.querySelector('#inputWord')
 
     inputWord.addEventListener("input", () => {
-        console.log(inputWord.value);
         filterByAll()
     })
 
@@ -199,14 +200,30 @@ fetch("./annunci.json").then((response) => response.json()).then((data) => {
     }
 
     function filterByAll() {
-        let arrayTotal= filterByCategory(data)
-        console.log(arrayTotal);
-        arrayTotal= filterByPrice(arrayTotal)
-        console.log(arrayTotal);
-        arrayTotal= filterByWord(arrayTotal)
+        let arrayTotal = filterByCategory(data)
+        // console.log(arrayTotal);
+        arrayTotal = filterByPrice(arrayTotal)
+        // console.log(arrayTotal);
+        arrayTotal = filterByWord(arrayTotal)
         showCard(arrayTotal)
-        console.log(arrayTotal);
+        // console.log(arrayTotal);
     }
+
+    
+    let clearButton=document.querySelector('#clearButton')
+
+    clearButton.addEventListener('click',()=>{
+        inputWord.value=""
+
+        let maxPrice = data[0].price
+        inputPrice.value = maxPrice
+        priceNumber.innerHTML = inputPrice.value
+        let checked = Array.from(radios).find((button) => button.checked)
+        checked.checked=false
+        let categoryAll =document.querySelector('#all')
+        categoryAll.checked=true;
+        showCard(data)
+    })
 
 });
 
