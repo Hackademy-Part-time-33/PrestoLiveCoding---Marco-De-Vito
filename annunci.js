@@ -69,8 +69,8 @@ function changeNavbar(background, imglogo, color1, color2, color3, addNavCollpas
 // PASSAGGIO N3: UTILIZZARE L'OGGETTO data
 
 // localStorage()
-
-fetch("./annunci.json").then((response) => response.json()).then((data) => {
+// !USO UN API DA UN PROGETTO LARAVEL
+fetch("http://127.0.0.1:8000/api/products").then((response) => response.json()).then((data) => {
 
     let categoryWrapper = document.querySelector('#categoryWrapper')
     let cardWrapper = document.querySelector('#cardWrapper')
